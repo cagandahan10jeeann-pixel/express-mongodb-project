@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrowing Records - Book Borrowing System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            📚 BOOK BORROWING
+        </div>
+
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/books.html">Books</a>
+        <a href="/borrowings.html">Borrowing Records</a>
+        <a href="/profile.html">Profile</a>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <h1 class="page-title">Borrowing Records</h1>
+
+
+        <!-- Record New Borrowing -->
+        <div class="content-box">
+
+            <h2>Record New Borrowing</h2>
+
+            <form id="borrowingForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Borrower Name</label>
+
+                        <input
+                            type="text"
+                            id="borrowerName"
+                            placeholder="Enter borrower name"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Book</label>
+
+                        <select id="book" required>
+
+                            <option value="">
+                                Select Book
+                            </option>
+
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <button type="submit">
+                    Record Borrowing
+                </button>
+
+            </form>
+
+            <p id="message" class="message"></p>
+
+        </div>
+
+
+        <!-- Borrowing History -->
+        <div class="content-box">
+
+            <h2>Borrowing History</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Borrower</th>
+                        <th>Book</th>
+                        <th>Date Borrowed</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+
+                <tbody id="borrowingList">
+
+                    <tr>
+                        <td colspan="5">
+                            Loading records...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script src="borrowings.js"></script>
+
+</body>
+</html>

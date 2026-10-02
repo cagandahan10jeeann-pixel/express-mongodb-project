@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Books - Book Borrowing System</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="layout">
+
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            📚 BOOK BORROWING
+        </div>
+
+
+        <a href="/dashboard.html">
+            Dashboard
+        </a>
+
+
+        <a href="/books.html">
+            Books
+        </a>
+
+
+        <a href="/borrowings.html">
+            Borrowing Records
+        </a>
+
+
+        <a href="/profile.html">
+            Profile
+        </a>
+
+    </aside>
+
+
+
+    <!-- Main Content -->
+
+    <main class="main-content">
+
+
+        <h1 class="page-title">
+            Books
+        </h1>
+
+
+
+        <!-- Add Book -->
+
+        <div class="content-box">
+
+            <h2>
+                Add New Book
+            </h2>
+
+
+            <form id="bookForm">
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Book Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="title"
+                            placeholder="Enter book title"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Author
+                        </label>
+
+                        <input
+                            type="text"
+                            id="author"
+                            placeholder="Enter author"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Category
+                        </label>
+
+                        <input
+                            type="text"
+                            id="category"
+                            placeholder="Enter category"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Number of Copies
+                        </label>
+
+                        <input
+                            type="number"
+                            id="copies"
+                            min="1"
+                            placeholder="Enter copies"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <button type="submit">
+                    Add Book
+                </button>
+
+
+                <button
+                    type="button"
+                    id="cancelAddButton"
+                >
+                    Cancel
+                </button>
+
+
+            </form>
+
+
+            <p
+                id="message"
+                class="message"
+            ></p>
+
+
+        </div>
+
+
+
+        <!-- Edit Book -->
+
+        <div
+            class="content-box"
+            id="editBookBox"
+            style="display: none;"
+        >
+
+
+            <h2>
+                Edit Book
+            </h2>
+
+
+
+            <form id="editBookForm">
+
+
+                <input
+                    type="hidden"
+                    id="editBookId"
+                >
+
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Book Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="editTitle"
+                            placeholder="Enter book title"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Author
+                        </label>
+
+                        <input
+                            type="text"
+                            id="editAuthor"
+                            placeholder="Enter author"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Category
+                        </label>
+
+                        <input
+                            type="text"
+                            id="editCategory"
+                            placeholder="Enter category"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Number of Copies
+                        </label>
+
+                        <input
+                            type="number"
+                            id="editCopies"
+                            min="0"
+                            placeholder="Enter copies"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <button type="submit">
+                    Update Book
+                </button>
+
+
+                <button
+                    type="button"
+                    id="cancelEditButton"
+                >
+                    Cancel
+                </button>
+
+
+            </form>
+
+
+            <p
+                id="editMessage"
+                class="message"
+            ></p>
+
+
+        </div>
+
+
+
+        <!-- Book List -->
+
+        <div class="content-box">
+
+
+            <h2>
+                Book List
+            </h2>
+
+
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Book Title
+                        </th>
+
+                        <th>
+                            Author
+                        </th>
+
+                        <th>
+                            Category
+                        </th>
+
+                        <th>
+                            Copies
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody id="bookList">
+
+
+                    <tr>
+
+                        <td colspan="5">
+                            Loading books...
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+
+<script src="books.js"></script>
+
+
+</body>
+
+</html>

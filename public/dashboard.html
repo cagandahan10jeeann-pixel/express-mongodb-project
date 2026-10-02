@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - Book Borrowing System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            📚 BOOK BORROWING
+        </div>
+
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/books.html">Books</a>
+        <a href="/borrowings.html">Borrowing Records</a>
+        <a href="/profile.html">Profile</a>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <h1 class="page-title">Dashboard</h1>
+
+        <p id="welcome">Loading...</p>
+
+
+        <!-- Dashboard Cards -->
+        <div class="cards">
+
+            <div class="card">
+
+                <h3>Total Books</h3>
+
+                <p id="totalBooks">0</p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Borrowed Books</h3>
+
+                <p id="borrowedBooks">0</p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Returned Books</h3>
+
+                <p id="returnedBooks">0</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Recent Borrowing -->
+        <div class="content-box">
+
+            <h2>Recent Borrowing Records</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Borrower</th>
+                        <th>Book</th>
+                        <th>Date</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="recentBorrowings">
+
+                    <tr>
+
+                        <td colspan="4">
+                            Loading...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+async function checkLogin() {
+
+    const response = await fetch(
+        "/protected",
+        {
+            credentials: "include"
+        }
+    );
+
+    const data = await response.json();
+
+
+    if (!response.ok) {
+
+        window.location.href = "/";
+
+        return;
+
+    }
+
+
+    document.getElementById("welcome").textContent =
+        `Welcome, ${data.user.name}!`;
+
+}
+
+
+async function loadDashboard() {
+
+    // Load books
+    const booksResponse = await fetch(
+        "/books",
+        {
+            credentials: "include"
+        }
+    );
+
+    const books = await booksResponse.json();
+
+
+    document.getElementById("totalBooks").textContent =
+        books.length;
+
+
+    // Load borrowing records
+    const borrowingResponse = await fetch(
+        "/borrowings",
+        {
+            credentials: "include"
+        }
+    );
+
+    const borrowings = await borrowingResponse.json();
+
+
+    const borrowed = borrowings.filter(
+        borrowing =>
+            borrowing.status === "Borrowed"
+    );
+
+
+    const returned = borrowings.filter(
+        borrowing =>
+            borrowing.status === "Returned"
+    );
+
+
+    document.getElementById("borrowedBooks").textContent =
+        borrowed.length;
+
+
+    document.getElementById("returnedBooks").textContent =
+        returned.length;
+
+
+    // Show recent records
+    const recent =
+        document.getElementById(
+            "recentBorrowings"
+        );
+
+
+    if (borrowings.length === 0) {
+
+        recent.innerHTML = `
+            <tr>
+                <td colspan="4">
+                    No borrowing records yet.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    recent.innerHTML = "";
+
+
+    borrowings
+        .slice(-5)
+        .reverse()
+        .forEach((borrowing) => {
+
+            const date = new Date(
+                borrowing.borrowDate
+            ).toLocaleDateString();
+
+
+            recent.innerHTML += `
+                <tr>
+                    <td>${borrowing.borrowerName}</td>
+                    <td>${borrowing.bookTitle}</td>
+                    <td>${date}</td>
+                    <td>${borrowing.status}</td>
+                </tr>
+            `;
+
+        });
+
+}
+
+
+checkLogin();
+
+loadDashboard();
+
+</script>
+
+</body>
+</html>

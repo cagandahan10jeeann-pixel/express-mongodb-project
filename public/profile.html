@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile - Book Borrowing System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            📚 BOOK BORROWING
+        </div>
+
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/books.html">Books</a>
+        <a href="/borrowings.html">Borrowing Records</a>
+        <a href="/profile.html">Profile</a>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <h1 class="page-title">Profile</h1>
+
+
+        <div class="profile-card">
+
+            <div class="profile-header">
+
+                <div class="profile-icon">
+                    👤
+                </div>
+
+                <div>
+                    <h2 id="name">Loading...</h2>
+                    <p id="role">Loading...</p>
+                </div>
+
+            </div>
+
+
+            <div class="profile-info">
+
+                <div class="profile-row">
+                    <span>Name</span>
+                    <strong id="profileName">Loading...</strong>
+                </div>
+
+                <div class="profile-row">
+                    <span>Email</span>
+                    <strong id="email">Loading...</strong>
+                </div>
+
+                <div class="profile-row">
+                    <span>Role</span>
+                    <strong id="profileRole">Loading...</strong>
+                </div>
+
+            </div>
+
+
+            <div class="profile-actions">
+
+                <button id="logoutButton">
+                    Logout
+                </button>
+
+                <p id="message" class="message"></p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+async function loadProfile() {
+
+    const response = await fetch("/protected", {
+        credentials: "include"
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        window.location.href = "/";
+        return;
+    }
+
+    document.getElementById("name").textContent =
+        data.user.name;
+
+    document.getElementById("role").textContent =
+        data.user.role;
+
+    document.getElementById("profileName").textContent =
+        data.user.name;
+
+    document.getElementById("email").textContent =
+        data.user.email;
+
+    document.getElementById("profileRole").textContent =
+        data.user.role;
+}
+
+
+document.getElementById("logoutButton").addEventListener(
+    "click",
+    async () => {
+
+        const response = await fetch("/logout", {
+            credentials: "include"
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            window.location.href = "/";
+        } else {
+            document.getElementById("message").textContent =
+                data.message;
+        }
+    }
+);
+
+
+loadProfile();
+
+</script>
+
+</body>
+</html>
